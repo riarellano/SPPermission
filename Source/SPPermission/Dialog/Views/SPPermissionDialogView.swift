@@ -216,7 +216,7 @@ class SPPermissionDialogLineView: UIView {
         self.titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         self.addSubview(self.titleLabel)
         
-        self.subtitleLabel.numberOfLines = 2
+        self.subtitleLabel.numberOfLines = 0
         self.subtitleLabel.textColor = SPPermissionStyle.DefaultColors.gray
         self.subtitleLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         self.addSubview(self.subtitleLabel)
@@ -250,7 +250,7 @@ class SPPermissionDialogLineView: UIView {
         
         self.frame = CGRect.init(origin: self.frame.origin, size: CGSize.init(width: self.frame.width, height: 79))
         
-        self.iconView.frame = CGRect.init(x: 0, y: 0, width: 45, height: 45)
+        self.iconView.frame = CGRect.init(x: 0, y: 0, width: 40, height: 40)
         self.iconView.center.y = self.frame.height / 2
         
         self.imageView.frame = self.iconView.frame
@@ -259,7 +259,7 @@ class SPPermissionDialogLineView: UIView {
         self.button.frame.origin.x = self.frame.width - self.button.frame.width
         self.button.center.y = self.frame.height / 2
         
-        let titleInset: CGFloat = 15
+        let titleInset: CGFloat = 10
         let titlesWidth: CGFloat = self.button.frame.origin.x - (self.iconView.frame.origin.x + self.iconView.frame.width)  - titleInset * 2
         
         self.titleLabel.frame = CGRect.init(x: 0, y: 8, width: titlesWidth, height: 0)

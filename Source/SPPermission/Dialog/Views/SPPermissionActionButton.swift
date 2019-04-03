@@ -32,14 +32,14 @@ class SPPermissionActionButton: UIButton {
             switch self.style {
             case .base:
                 self.backgroundColor = self.secondColor
-                self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+                self.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .bold)
                 self.contentEdgeInsets = UIEdgeInsets.init(top: 6, left: 15, bottom: 6, right: 15)
                 break
             case .select:
                 self.backgroundColor = self.baseColor
                 self.layer.borderWidth = 0
                 self.setTitleColorForTwoState(UIColor.white)
-                self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+                self.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .bold)
                 self.contentEdgeInsets = UIEdgeInsets.init(top: 6, left: 15, bottom: 6, right: 15)
                 break
             }
