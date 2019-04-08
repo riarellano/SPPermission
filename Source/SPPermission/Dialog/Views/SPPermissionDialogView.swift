@@ -241,7 +241,7 @@ class SPPermissionDialogLineView: UIView {
         } else if SPPermission.isDenied(self.permission) {
             SPPermissionStyle.Animation.base(0.2, animations: {
                 self.button.setTitle(self.deniedTitle, for: .normal)
-                self.button.style = .base
+                self.button.style = .select
                 self.button.sizeToFit()
             })
         } else {
