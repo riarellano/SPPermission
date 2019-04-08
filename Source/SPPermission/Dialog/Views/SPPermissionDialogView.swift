@@ -151,11 +151,13 @@ class SPPermissionDialogLineView: UIView {
     var permission: SPPermissionType
     private var allowTitle: String
     private var allowedTitle: String
+    private var deniedTitle: String
     
-    init(permission: SPPermissionType, title: String, subtitle: String, allowTitle: String, allowedTitle: String, image: UIImage? = nil) {
+    init(permission: SPPermissionType, title: String, subtitle: String, allowTitle: String, allowedTitle: String, deniedTitle: String = "Denied", image: UIImage? = nil) {
         self.permission = permission
         self.allowTitle = allowTitle
         self.allowedTitle = allowedTitle
+        self.deniedTitle = deniedTitle
         super.init(frame: .zero)
         self.titleLabel.text = title
         self.subtitleLabel.text = subtitle
@@ -201,6 +203,7 @@ class SPPermissionDialogLineView: UIView {
         self.permission = .notification
         self.allowTitle = "Allow"
         self.allowedTitle = "Allowed"
+        self.deniedTitle = "Denied"
         super.init(coder: aDecoder)
         self.commonInit()
     }
@@ -234,6 +237,12 @@ class SPPermissionDialogLineView: UIView {
             SPPermissionStyle.Animation.base(0.2, animations: {
                 self.button.setTitle(self.allowedTitle, for: .normal)
                 self.button.style = .select
+                self.button.sizeToFit()
+            })
+        } else if SPPermission.isDenied(self.permission) {
+            SPPermissionStyle.Animation.base(0.2, animations: {
+                self.button.setTitle(self.deniedTitle, for: .normal)
+                self.button.style = .base
                 self.button.sizeToFit()
             })
         } else {
