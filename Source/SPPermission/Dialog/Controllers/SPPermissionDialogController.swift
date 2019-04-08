@@ -146,40 +146,45 @@ public class SPPermissionDialogController: UIViewController {
         }
         
         if let permission = permission {
+            if SPPermission.isDenied(permission) {
+                let alertController = UIAlertController.init(
+                    title:  self.dataSource?.deniedTitle?(for: permission) ?? "Permission denied",
+                    message: self.dataSource?.deniedSubtitle?(for: permission) ?? "Please, go to Settings and allow permissions",
+                    preferredStyle: .alert
+                )
+                alertController.addAction(UIAlertAction.init(title: self.dataSource?.cancelTitle ?? "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                alertController.addAction(UIAlertAction.init(title: self.dataSource?.settingsTitle ?? "Settings", style: UIAlertAction.Style.default, handler: { (action) in
+                    
+                    UIApplication.shared.open(
+                        URL.init(string: UIApplication.openSettingsURLString)!,
+                        options: [:],
+                        completionHandler: nil
+                    )
+                    
+                }))
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            
             SPPermission.request(permission, with: {
                 if SPPermission.isAllowed(permission) {
                     self.delegate?.didAllow?(permission: permission)
-                    permissionView?.updateStyle()
-                    for permission in self.permissions {
-                        if SPPermission.isAllowed(permission) {
-                            if self.permissions.last == permission {
-                                SPPermissionStyle.Delay.wait(0.2, closure: {
-                                    self.hide(withDialog: true)
-                                })
-                            }
-                        } else {
-                            return
-                        }
-                    }
                 } else {
                     self.delegate?.didDenied?(permission: permission)
-                    let alertController = UIAlertController.init(
-                        title:  self.dataSource?.deniedTitle?(for: permission) ?? "Permission denied",
-                        message: self.dataSource?.deniedSubtitle?(for: permission) ?? "Please, go to Settings and allow permissions",
-                        preferredStyle: .alert
-                    )
-                    alertController.addAction(UIAlertAction.init(title: self.dataSource?.cancelTitle ?? "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-                    alertController.addAction(UIAlertAction.init(title: self.dataSource?.settingsTitle ?? "Settings", style: UIAlertAction.Style.default, handler: { (action) in
-                        
-                        UIApplication.shared.open(
-                            URL.init(string: UIApplication.openSettingsURLString)!,
-                            options: [:],
-                            completionHandler: nil
-                        )
-                        
-                    }))
-                    
-                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+                permissionView?.updateStyle()
+                for permission in self.permissions {
+                    if SPPermission.isAllowed(permission) {
+                        if self.permissions.last == permission {
+                            SPPermissionStyle.Delay.wait(0.2, closure: {
+                                self.hide(withDialog: true)
+                            })
+                        }
+                    } else {
+                        return
+                    }
                 }
             })
         }
