@@ -176,7 +176,7 @@ public class SPPermissionDialogController: UIViewController {
                 
                 permissionView?.updateStyle()
                 for permission in self.permissions {
-                    if SPPermission.isAllowed(permission) {
+                    if SPPermission.isAllowed(permission) || SPPermission.isDenied(permission) {
                         if self.permissions.last == permission {
                             SPPermissionStyle.Delay.wait(0.2, closure: {
                                 self.hide(withDialog: true)
