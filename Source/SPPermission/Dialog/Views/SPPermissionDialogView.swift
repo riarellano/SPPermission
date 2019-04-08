@@ -224,8 +224,7 @@ class SPPermissionDialogLineView: UIView {
         self.subtitleLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         self.addSubview(self.subtitleLabel)
         
-        self.button.setTitle(self.allowTitle, for: .normal)
-        self.button.style = .base
+        self.updateStyle()
         self.addSubview(self.button)
         
         self.separatorView.backgroundColor = SPPermissionStyle.DefaultColors.gray.withAlphaComponent(0.3)
