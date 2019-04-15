@@ -115,7 +115,7 @@ public class SPPermissionDialogController: UIViewController {
             view.button.addTarget(self, action: #selector(self.request(with:)), for: .touchUpInside)
             self.areaView.add(view: view)
         }
-        self.areaView.descriptionLabel.text = (self.dataSource?.dialogComment ?? "Permissions are necessary for the correct work of the application and the performance of all functions. Push are not required permissions")
+        self.areaView.descriptionLabel.text = (self.dataSource?.dialogComment ?? "Don't worry, permissions are optional but recommended to improve your experience using the app. You can close this dialog by tapping on the close button.")
         self.view.addSubview(self.areaView)
         self.areaView.layer.anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
         
